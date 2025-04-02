@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmployeeController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -57,6 +58,12 @@ Route::post('/email/verification-notification', [UserController::class, 'verifyH
 
 
 
+
+// Employee Route
+route::get('/employee', [EmployeeController::class, 'employee']);
+Route::get('/employees/{id}/employees_profile', [EmployeeController::class, 'employees_profile']);
+Route::get('/employees/{id}/edit', [EmployeeController::class, 'edit'])->name('employee.edit');
+Route::post('/employees/{id}/updatePicture', [EmployeeController::class, 'updatePicture'])->name('employee.updatePicture');
 // Route::get('/users', [UserController::class, 'index'])->name('login');
 
 
