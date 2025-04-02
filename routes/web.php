@@ -32,7 +32,7 @@ use Illuminate\Http\Request;
 
 Route::get('/', [StudentController::class, 'index'])->Middleware('auth', 'verified');
 
-Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
+Route::get('/login', [UserController::class, 'login'])->name('login');
 
 Route::post('/login/process', [UserController::class, 'process']);
 Route::get('/register', [UserController::class, 'register'])->middleware('guest');

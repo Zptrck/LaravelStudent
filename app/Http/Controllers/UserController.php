@@ -12,6 +12,8 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use PhpParser\Node\NullableType;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Auth\Notifications\VerifyEmail;
 
 
 class UserController extends Controller
@@ -110,14 +112,19 @@ class UserController extends Controller
     public function verifyEmail(EmailVerificationRequest $request) {
         $request->fulfill();
      
-        return redirect('/login');
+        if (Auth::check()) {
+            return redirect('/login')->with('message', 'Email verified! Please log in.');
+        }
+    
+        return redirect('/login')->with('message', 'Email verified, but you need to log in.');
     }
     // resending verification
     public function verifyHandler(Request $request) {
         $request->user()->sendEmailVerificationNotification();
     
         return back()->with('message', 'Verification link sent!');
-        
+
+
     }
 
 
@@ -125,14 +132,14 @@ class UserController extends Controller
 
 
 
-    public function show($id){
-        $data = ["data" => "data from database"];
-        return view('user')
-        ->with('data', $data)
-        ->with('name', 'Patrick')
-        ->with('age', 22)
-        ->with('email', 'Patrick@gmail.com')
-        ->with('id', $id);
-    }
+//     public function show($id){
+//         $data = ["data" => "data from database"];
+//         return view('user')
+//         ->with('data', $data)
+//         ->with('name', 'Patrick')
+//         ->with('age', 22)
+//         ->with('email', 'Patrick@gmail.com')
+//         ->with('id', $id);
+//     }
 
 }
